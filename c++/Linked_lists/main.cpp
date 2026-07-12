@@ -18,6 +18,7 @@ private:
     Node* tail;
     int length;
 public:
+    //temp = temporary,perv = previous
     LinkedList(int value) {
         //Create Node
         Node* newNode = new Node(value);
@@ -130,8 +131,9 @@ public:
         //Nothing to delete9
         if (length == 0) return;
 
-        Node* temp = head; //Temporary
-        Node* pre = head; //Previous
+        Node* temp = head;
+        Node* pre = head;
+        //Stops when temp is at end.
         while(temp->next != nullptr) {
             pre = temp;
             temp = temp->next;
@@ -149,10 +151,6 @@ public:
             
     }
 
-    void getHead() {
-        std::cout << "Head: " << head->value << std::endl;
-    }
-
     void deleteNode(int index) {
         if (index < 0 || index >= length) return;
         if (index == 0) return deleteFirst();
@@ -167,6 +165,7 @@ public:
     void reverse() {
         /*By doing this you create a gap when reversing 
         so you need after to help temp point to it*/
+
         //Switch head and tail
         Node* temp = head;
         head = tail;
@@ -176,11 +175,15 @@ public:
         Node* before = nullptr;
         for (int i{0};i < length;i++) {
             after = temp->next;
-            temp->next = before; //Creates gap
+            temp->next = before; //Creates gap points different direction.
             before = temp;
             temp = after;
         }
 
+    }
+
+    void getHead() {
+        std::cout << "Head: " << head->value << std::endl;
     }
 
     void getTail() {
@@ -212,7 +215,6 @@ int main(){
     ll->prepend(0);
 
     ll->set(1,5);
-    std::cout << "ot" << std::endl;
     ll->reverse();
     ll->printList();
     return 0;
