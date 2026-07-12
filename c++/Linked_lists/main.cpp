@@ -153,6 +153,17 @@ public:
         std::cout << "Head: " << head->value << std::endl;
     }
 
+    void deleteNode(int index) {
+        if (index < 0 || index >= length) return;
+        if (index == 0) return deleteFirst();
+        if (index == length-1) return deleteLast();
+        Node* prev = get(index-1);
+        Node* temp = prev->next; //Avoid callid get because it is O(n)
+        prev->next = temp->next;
+        delete temp;
+        length--;
+    }
+
     void getTail() {
         std::cout << "Tail: " << tail->value << std::endl;
     }
