@@ -66,9 +66,37 @@ public:
         length++;
     }
 
+    Node* get(int index) {
+        //Not in indes range.
+        if (index < 0 || index >= length) {
+            return nullptr;
+        }
+        //Moving temp by iternating index times.
+        Node* temp = head;
+        for (int i{0};i < index;i++) {
+            temp = temp->next;
+        }
+        return temp;
+    }
+
     bool insert(int value) {
         //Create Node and insert at a place
         return true;
+    }
+
+    void deleteFirst() {
+        //Nothing to delete
+        if (length == 0) return;
+        Node* temp = head;
+        //Point to end of list which is nullptr.
+        if (length == 1) {
+            head = nullptr;
+            tail = nullptr;
+        } else {
+            head = temp->next;
+        }
+        delete temp;
+        length--;
     }
 
     void deleteLast() {
@@ -124,6 +152,10 @@ int main(){
     //Creating new linked_list with value of four
     LinkedList* ll = new LinkedList(1);
     ll->append(2);
-    ll->printList();
+    ll->prepend(0);
+
+    ll->deleteFirst();
+
+     ll->printList();
     return 0;
 }
