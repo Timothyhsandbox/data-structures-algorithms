@@ -164,6 +164,25 @@ public:
         length--;
     }
 
+    void reverse() {
+        /*By doing this you create a gap when reversing 
+        so you need after to help temp point to it*/
+        //Switch head and tail
+        Node* temp = head;
+        head = tail;
+        tail = temp;
+
+        Node* after = temp->next;
+        Node* before = nullptr;
+        for (int i{0};i < length;i++) {
+            after = temp->next;
+            temp->next = before; //Creates gap
+            before = temp;
+            temp = after;
+        }
+
+    }
+
     void getTail() {
         std::cout << "Tail: " << tail->value << std::endl;
     }
@@ -193,6 +212,8 @@ int main(){
     ll->prepend(0);
 
     ll->set(1,5);
+    std::cout << "ot" << std::endl;
+    ll->reverse();
     ll->printList();
     return 0;
 }
