@@ -79,8 +79,35 @@ public:
         return temp;
     }
 
-    bool insert(int value) {
-        //Create Node and insert at a place
+    bool set(int index,int value) {
+        Node* temp = get(index);
+        if (temp != nullptr) {
+            temp->value = value;
+            return true;
+        } else {
+            return false;
+        }
+    }   
+
+    bool insert(int index,int value) {
+        //Create Node and insert node at a place
+        if (index < 0 || index > length) return false;
+
+        if (index = 0) {
+            prepend(value);
+            return true;
+        }
+
+        if (index == length) {
+            append(value);
+            return true;
+        }
+
+        Node* newNode = new Node(value);
+        Node* temp = get(index-1); //Get node before inserted index
+        newNode->next = temp->next;
+        temp->next = newNode;
+        length++;
         return true;
     }
 
@@ -101,7 +128,7 @@ public:
 
     void deleteLast() {
         //Nothing to delete9
-        if(length == 0) return;
+        if (length == 0) return;
 
         Node* temp = head; //Temporary
         Node* pre = head; //Previous
@@ -114,7 +141,7 @@ public:
         length--;
 
         //If there was one element before now list is empty.
-        if(length == 0) {
+        if (length == 0) {
             head = nullptr;
             tail = nullptr;
         }
@@ -154,8 +181,7 @@ int main(){
     ll->append(2);
     ll->prepend(0);
 
-    ll->deleteFirst();
-
-     ll->printList();
+    ll->set(1,5);
+    ll->printList();
     return 0;
 }
