@@ -41,6 +41,16 @@ public:
 
     void append(int value) {
         //Create Node and add to end
+        Node* newNode = new Node(value);
+        if(length == 0) {
+            //Point to same value.
+            head = newNode;
+            tail = newNode;
+        }else{
+            tail->next = newNode;
+            tail = newNode;
+        }
+        length++;
     }
 
     void prepend(int value) {
@@ -49,6 +59,30 @@ public:
 
     bool insert(int value) {
         //Create Node and insert at a place
+        return true;
+    }
+
+    void deleteLast() {
+        //Nothing to delete9
+        if(length == 0) return;
+
+        Node* temp = head; //Temporary
+        Node* pre = head; //Previous
+        while(temp->next != nullptr) {
+            pre = temp;
+            temp = temp->next;
+        }
+        tail = pre;
+        tail->next = nullptr;
+        length--;
+
+        //If there was one element before now list is empty.
+        if(length == 0) {
+            head = nullptr;
+            tail = nullptr;
+        }
+        delete temp;
+            
     }
 
     void getHead() {
@@ -67,8 +101,11 @@ public:
         Node* temp = head;
         std::cout << "[";
         while(temp != nullptr) {
-            std::cout << temp->value;
-            temp = temp->next; //next used to move to next elem.
+            if(temp == this->head)
+                std::cout << temp->value;
+            else
+                std::cout << "," << temp->value;
+            temp = temp->next;
         }
         std::cout << "]" << std::endl;
     }
@@ -76,11 +113,8 @@ public:
 
 int main(){
     //Creating new linked_list with value of four
-    LinkedList* ll = new LinkedList(4);
-    ll->getHead();
-    ll->getTail();
-    ll->getLength();
-
+    LinkedList* ll = new LinkedList(1);
+    ll->append(2);
     ll->printList();
     return 0;
 }
